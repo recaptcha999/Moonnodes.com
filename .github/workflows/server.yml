@@ -31,14 +31,12 @@ jobs:
         run: |
           chmod +x start.sh
           
-          # Run playit in the background and output its log info if available
-          playit &
-          PLAYIT_PID=$!
-          
+          # Force playit to run locally and output connection info
+          nohup playit --secret_key "" > playit.log 2>&1 &
           sleep 5
+          
+          echo "Displaying Playit connection details..."
+          cat playit.log || true
           
           # Start MCPE Server
           echo "y" | ./start.sh
-          
-          # Keep workflow alive
-          wait $PLAYIT_PID
