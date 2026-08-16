@@ -31,8 +31,12 @@ jobs:
         run: |
           chmod +x start.sh
           
-          # Start Playit normally
+          # Fix playit user permissions and start tunnel
+          sudo usermod -aG playit $USER || true
+          newgrp playit <<EOF &
           playit &
+          EOF
+          
           sleep 5
           
           # Start MCPE Server
