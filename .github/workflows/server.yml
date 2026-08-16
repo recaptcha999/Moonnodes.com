@@ -1,7 +1,7 @@
 name: MCPE v0.15.10 Server
 
 on:
-  workflow_dispatch: # Allows you to manually start the server from the Actions tab
+  workflow_dispatch:
 
 jobs:
   run-server:
@@ -11,11 +11,11 @@ jobs:
       - name: Fetch Server Files from Repository
         uses: actions/checkout@v4
 
-      - name: Install PHP 7.0
+      - name: Install PHP 7.0 with pthreads
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.0'
-          extensions: sockets, pthreads, yaml, zip, zlib, mbstring
+          extensions: sockets, yaml, zip, zlib, mbstring, pthreads
 
       - name: Install Playit.gg (For Server IP)
         run: |
@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "Starting Playit.gg tunnel..."
           playit &
-          sleep 10 # Give the tunnel time to generate the claim link in the console
+          sleep 10
           
           echo "Starting MCPE v0.15.10 Server..."
           chmod +x start.sh
