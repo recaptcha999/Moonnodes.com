@@ -16,6 +16,7 @@ jobs:
         with:
           php-version: '7.0'
           extensions: sockets, yaml, zip, zlib, mbstring, pthreads
+          ini-values: xdebug.max_nesting_level=512, xdebug.default_enable=0
         env:
           phpts: ts
 
@@ -26,12 +27,18 @@ jobs:
           sudo apt update
           sudo apt install playit
           
-      - name: Start Playit and Server
+      - name: Start Server and Tunnel
         run: |
-          echo "Starting Playit.gg tunnel..."
-          playit &
-          sleep 10
-          
-          echo "Starting MCPE v0.15.10 Server..."
           chmod +x start.sh
+          
+          # Run playit in the background and output its log info if available
+          playit &
+          PLAYIT_PID=$!
+          
+          sleep 5
+          
+          # Start MCPE Server
           echo "y" | ./start.sh
+          
+          # Keep workflow alive
+          wait $PLAYIT_PID
