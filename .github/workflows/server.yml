@@ -1,0 +1,36 @@
+name: MCPE v0.15.10 Server
+
+on:
+  workflow_dispatch: # Allows you to manually start the server from the Actions tab
+
+jobs:
+  run-server:
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - name: Fetch Server Files from Repository
+        uses: actions/checkout@v4
+
+      - name: Install PHP 7.0
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.0'
+          extensions: sockets, pthreads, yaml, zip, zlib, mbstring
+
+      - name: Install Playit.gg (For Server IP)
+        run: |
+          curl -SsL https://playit-cloud.github.io/ppa/key.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/playit.gpg
+          echo "deb [signed-by=/etc/apt/trusted.gpg.d/playit.gpg] https://playit-cloud.github.io/ppa/data ./" | sudo tee /etc/apt/sources.list.d/playit-cloud.list
+          sudo apt update
+          sudo apt install playit
+          
+      - name: Start Playit and Server
+        run: |
+          echo "Starting Playit.gg tunnel..."
+          playit &
+          sleep 10 # Give the tunnel time to generate the claim link in the console
+          
+          echo "Starting MCPE v0.15.10 Server..."
+          chmod +x start.sh
+          ./start.sh
+
