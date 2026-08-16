@@ -34,5 +34,4 @@ jobs:
           
           echo "Starting MCPE v0.15.10 Server..."
           chmod +x start.sh
-          ./start.sh
-
+          yes y | ./start.sh
