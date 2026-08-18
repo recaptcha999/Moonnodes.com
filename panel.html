@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MoonNodes | Hosting Panel</title>
+
+<style>
+
+/* =========================================================
+   MOONNODES
+   PREMIUM MINECRAFT HOSTING PANEL
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050505;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+}
+
+/* HEADER */
+
+.header{
+    height:70px;
+    padding:0 25px;
+    background:#080808;
+    border-bottom:1px solid #222;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#777;
+}
+
+.user{
+    color:#888;
+    font-size:13px;
+}
+
+/* LAYOUT */
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 70px);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:245px;
+    background:#080808;
+    border-right:1px solid #222;
+    padding:20px 12px;
+}
+
+.sidebar-title{
+    color:#555;
+    font-size:11px;
+    margin:18px 12px 10px;
+    text-transform:uppercase;
+}
+
+.nav{
+    width:100%;
+    padding:13px;
+    margin-bottom:6px;
+
+    background:transparent;
+    border:1px solid transparent;
+    border-radius:8px;
+
+    color:#999;
+    text-align:left;
+
+    cursor:pointer;
+}
+
+.nav:hover{
+    background:#111;
+    color:#fff;
+}
+
+.nav.active{
+    background:#fff;
+    color:#000;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    padding:30px;
+    max-width:1600px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.page-title{
+    font-size:31px;
+    margin-bottom:8px;
+}
+
+.page-description{
+    color:#666;
+    margin-bottom:30px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:#0d0d0d;
+    border:1px solid #242424;
+    border-radius:12px;
+    padding:20px;
+}
+
+.stat-title{
+    color:#666;
+    font-size:11px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.stat-value{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.green{
+    color:#55ff88;
+}
+
+.red{
+    color:#ff5555;
+}
+
+.yellow{
+    color:#ffd84d;
+}
+
+/* SERVER */
+
+.server{
+    background:#0d0d0d;
+    border:1px solid #242424;
+    border-radius:14px;
+    padding:25px;
+    margin-bottom:18px;
+}
+
+.server-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.server-name{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.server-address{
+    color:#666;
+    margin-top:6px;
+    font-size:13px;
+}
+
+.server-info{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:22px;
+}
+
+.info{
+    padding:15px;
+    background:#090909;
+    border:1px solid #202020;
+    border-radius:8px;
+}
+
+.info small{
+    color:#555;
+    display:block;
+    margin-bottom:7px;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#55ff88;
+    font-size:13px;
+}
+
+.dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#55ff88;
+    box-shadow:0 0 12px #55ff88;
+}
+
+/* BUTTONS */
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:22px;
+}
+
+.btn{
+    padding:11px 17px;
+    border-radius:7px;
+    border:1px solid #292929;
+    background:#171717;
+    color:#fff;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn:hover{
+    background:#252525;
+}
+
+.start{
+    background:#55ff88;
+    color:#000;
+}
+
+.stop{
+    background:#ff5555;
+    color:#fff;
+}
+
+.restart{
+    background:#fff;
+    color:#000;
+}
+
+/* NODES */
+
+.nodes{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.node{
+    background:#0d0d0d;
+    border:1px solid #242424;
+    border-radius:13px;
+    padding:22px;
+}
+
+.node h2{
+    margin-bottom:8px;
+}
+
+.node-host{
+    color:#777;
+    font-family:monospace;
+    margin-bottom:18px;
+}
+
+.node-status{
+    color:#55ff88;
+    margin-bottom:18px;
+}
+
+.node-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.node-stat{
+    background:#080808;
+    padding:12px;
+    border-radius:7px;
+}
+
+.node-stat small{
+    display:block;
+    color:#555;
+    margin-bottom:5px;
+}
+
+/* CONSOLE */
+
+.console{
+    height:410px;
+    padding:18px;
+
+    background:#000;
+    border:1px solid #222;
+    border-radius:10px;
+
+    overflow:auto;
+
+    font-family:monospace;
+    font-size:13px;
+    line-height:1.8;
+
+    color:#aaa;
+}
+
+.console-success{
+    color:#55ff88;
+}
+
+.console-warning{
+    color:#ffd84d;
+}
+
+.console-error{
+    color:#ff5555;
+}
+
+.command{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.command input{
+    flex:1;
+    padding:13px;
+
+    background:#0d0d0d;
+    color:#fff;
+
+    border:1px solid #292929;
+    border-radius:7px;
+    outline:none;
+}
+
+/* FILES */
+
+.files{
+    background:#0d0d0d;
+    border:1px solid #242424;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.file{
+    display:flex;
+    justify-content:space-between;
+
+    padding:17px 20px;
+
+    border-bottom:1px solid #1d1d1d;
+}
+
+.file:last-child{
+    border-bottom:0;
+}
+
+.file-name{
+    color:#ddd;
+}
+
+.file-type{
+    color:#555;
+}
+
+/* OPERATOR */
+
+.operator{
+    background:#0d0d0d;
+    border:1px solid #333;
+    border-radius:13px;
+    padding:25px;
+}
+
+.operator-badge{
+    display:inline-block;
+
+    padding:6px 10px;
+    margin-bottom:15px;
+
+    background:#fff;
+    color:#000;
+
+    border-radius:20px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(0,0,0,.78);
+
+    z-index:500;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:90%;
+    max-width:450px;
+
+    background:#0d0d0d;
+    border:1px solid #333;
+    border-radius:15px;
+
+    padding:30px;
+    text-align:center;
+}
+
+.modal-box p{
+    color:#777;
+    margin-top:10px;
+}
+
+.countdown{
+    font-size:55px;
+    font-weight:bold;
+    margin:25px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .nodes{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:800px){
+
+    .layout{
+        display:block;
+    }
+
+    .sidebar{
+        width:100%;
+        border-right:0;
+        border-bottom:1px solid #222;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .server-info{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .server-info{
+        grid-template-columns:1fr;
+    }
+
+    .main{
+        padding:18px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="logo">
+        🌙 MoonNodes <span>Panel</span>
+    </div>
+
+    <div class="user">
+        haideraki5522@gmail.com
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-title">
+        Main
+    </div>
+
+    <button class="nav active"
+            onclick="page('dashboard',this)">
+        📊 Dashboard
+    </button>
+
+    <button class="nav"
+            onclick="page('servers',this)">
+        🖥️ Servers
+    </button>
+
+
+    <div class="sidebar-title">
+        Infrastructure
+    </div>
+
+    <button class="nav"
+            onclick="page('nodes',this)">
+        🖧 Nodes
+    </button>
+
+
+    <div class="sidebar-title">
+        Server Management
+    </div>
+
+    <button class="nav"
+            onclick="page('console',this)">
+        💻 Console
+    </button>
+
+    <button class="nav"
+            onclick="page('files',this)">
+        📁 Files
+    </button>
+
+
+    <div class="sidebar-title">
+        Administration
+    </div>
+
+    <button class="nav"
+            onclick="page('operator',this)">
+        🛠️ Operator
+    </button>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard" class="page active">
+
+<h1 class="page-title">
+Dashboard
+</h1>
+
+<p class="page-description">
+MoonNodes hosting overview.
+</p>
+
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-title">Servers</div>
+<div class="stat-value">4</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Online</div>
+<div class="stat-value green">3</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Nodes</div>
+<div class="stat-value">3</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">RAM</div>
+<div class="stat-value">12 GB</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Network</div>
+<div class="stat-value green">Online</div>
+</div>
+
+</div>
+
+
+<!-- SERVER 1 -->
+
+<div class="server">
+
+<div class="server-head">
+
+<div>
+
+<div class="server-name">
+🌙 MoonSMP
+</div>
+
+<div class="server-address">
+node1.moonnodes.net:25565
+</div>
+
+</div>
+
+<div class="status">
+
+<div class="dot"></div>
+
+Online
+
+</div>
+
+</div>
+
+
+<div class="server-info">
+
+<div class="info">
+
+<small>NODE</small>
+
+Node 1
+
+</div>
+
+<div class="info">
+
+<small>RAM</small>
+
+4 GB
+
+</div>
+
+<div class="info">
+
+<small>CPU</small>
+
+2 Cores
+
+</div>
+
+<div class="info">
+
+<small>PORT</small>
+
+25565
+
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button class="btn start"
+onclick="startServer('MoonSMP')">
+▶ Start
+</button>
+
+<button class="btn stop"
+onclick="stopServer('MoonSMP')">
+■ Stop
+</button>
+
+<button class="btn restart"
+onclick="restartServer('MoonSMP')">
+↻ Restart
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SERVER 2 -->
+
+<div class="server">
+
+<div class="server-head">
+
+<div>
+
+<div class="server-name">
+⚔️ StrengthSMP
+</div>
+
+<div class="server-address">
+node2.moonnodes.net:25566
+</div>
+
+</div>
+
+<div class="status">
+
+<div class="dot"></div>
+
+Online
+
+</div>
+
+</div>
+
+
+<div class="server-info">
+
+<div class="info">
+<small>NODE</small>
+Node 2
+</div>
+
+<div class="info">
+<small>RAM</small>
+4 GB
+</div>
+
+<div class="info">
+<small>CPU</small>
+2 Cores
+</div>
+
+<div class="info">
+<small>PORT</small>
+25566
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button class="btn start"
+onclick="startServer('StrengthSMP')">
+▶ Start
+</button>
+
+<button class="btn stop"
+onclick="stopServer('StrengthSMP')">
+■ Stop
+</button>
+
+<button class="btn restart"
+onclick="restartServer('StrengthSMP')">
+↻ Restart
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SERVER 3 -->
+
+<div class="server">
+
+<div class="server-head">
+
+<div>
+
+<div class="server-name">
+🔥 SurvivalSMP
+</div>
+
+<div class="server-address">
+node3.moonnodes.net:25567
+</div>
+
+</div>
+
+<div class="status">
+
+<div class="dot"></div>
+
+Online
+
+</div>
+
+</div>
+
+
+<div class="server-info">
+
+<div class="info">
+<small>NODE</small>
+Node 3
+</div>
+
+<div class="info">
+<small>RAM</small>
+4 GB
+</div>
+
+<div class="info">
+<small>CPU</small>
+2 Cores
+</div>
+
+<div class="info">
+<small>PORT</small>
+25567
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button class="btn start"
+onclick="startServer('SurvivalSMP')">
+▶ Start
+</button>
+
+<button class="btn stop"
+onclick="stopServer('SurvivalSMP')">
+■ Stop
+</button>
+
+<button class="btn restart"
+onclick="restartServer('SurvivalSMP')">
+↻ Restart
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SERVERS
+===================================================== -->
+
+<section id="servers" class="page">
+
+<h1 class="page-title">
+My Servers
+</h1>
+
+<p class="page-description">
+All servers and their assigned nodes.
+</p>
+
+
+<div class="server">
+
+<h2>🌙 MoonSMP</h2>
+
+<br>
+
+<p>
+Node:
+<b>node1.moonnodes.net</b>
+</p>
+
+<p>
+Port:
+<b>25565</b>
+</p>
+
+<p>
+Address:
+<b>node1.moonnodes.net:25565</b>
+</p>
+
+<br>
+
+<span class="green">
+● Online
+</span>
+
+</div>
+
+
+<div class="server">
+
+<h2>⚔️ StrengthSMP</h2>
+
+<br>
+
+<p>
+Node:
+<b>node2.moonnodes.net</b>
+</p>
+
+<p>
+Port:
+<b>25566</b>
+</p>
+
+<p>
+Address:
+<b>node2.moonnodes.net:25566</b>
+</p>
+
+<br>
+
+<span class="green">
+● Online
+</span>
+
+</div>
+
+
+<div class="server">
+
+<h2>🔥 SurvivalSMP</h2>
+
+<br>
+
+<p>
+Node:
+<b>node3.moonnodes.net</b>
+</p>
+
+<p>
+Port:
+<b>25567</b>
+</p>
+
+<p>
+Address:
+<b>node3.moonnodes.net:25567</b>
+</p>
+
+<br>
+
+<span class="green">
+● Online
+</span>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     NODES
+===================================================== -->
+
+<section id="nodes" class="page">
+
+<h1 class="page-title">
+MoonNodes Nodes
+</h1>
+
+<p class="page-description">
+Manage your Minecraft infrastructure.
+</p>
+
+
+<div class="nodes">
+
+
+<div class="node">
+
+<h2>
+🖥️ Node 1
+</h2>
+
+<div class="node-host">
+node1.moonnodes.net
+</div>
+
+<div class="node-status">
+● Online
+</div>
+
+<div class="node-stats">
+
+<div class="node-stat">
+
+<small>CPU</small>
+
+35%
+
+</div>
+
+<div class="node-stat">
+
+<small>RAM</small>
+
+4 / 8 GB
+
+</div>
+
+<div class="node-stat">
+
+<small>Servers</small>
+
+1
+
+</div>
+
+<div class="node-stat">
+
+<small>Ports</small>
+
+25565+
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="node">
+
+<h2>
+🖥️ Node 2
+</h2>
+
+<div class="node-host">
+node2.moonnodes.net
+</div>
+
+<div class="node-status">
+● Online
+</div>
+
+<div class="node-stats">
+
+<div class="node-stat">
+
+<small>CPU</small>
+
+41%
+
+</div>
+
+<div class="node-stat">
+
+<small>RAM</small>
+
+5 / 8 GB
+
+</div>
+
+<div class="node-stat">
+
+<small>Servers</small>
+
+1
+
+</div>
+
+<div class="node-stat">
+
+<small>Ports</small>
+
+25566+
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="node">
+
+<h2>
+🖥️ Node 3
+</h2>
+
+<div class="node-host">
+node3.moonnodes.net
+</div>
+
+<div class="node-status">
+● Online
+</div>
+
+<div class="node-stats">
+
+<div class="node-stat">
+
+<small>CPU</small>
+
+27%
+
+</div>
+
+<div class="node-stat">
+
+<small>RAM</small>
+
+3 / 8 GB
+
+</div>
+
+<div class="node-stat">
+
+<small>Servers</small>
+
+1
+
+</div>
+
+<div class="node-stat">
+
+<small>Ports</small>
+
+25567+
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CONSOLE
+===================================================== -->
+
+<section id="console" class="page">
+
+<h1 class="page-title">
+Server Console
+</h1>
+
+<p class="page-description">
+MoonSMP live console.
+</p>
+
+
+<div class="console" id="console">
+
+<div class="console-success">
+[MoonNodes] Node 1 connected.
+</div>
+
+[Server] Starting Minecraft...<br>
+
+[Server] Loading properties...<br>
+
+[Server] Loading world...<br>
+
+[Server] Loading plugins...<br>
+
+<div class="console-success">
+[Server] Done! Server is ready.
+</div>
+
+[Server] Listening on node1.moonnodes.net:25565.<br>
+
+</div>
+
+
+<div class="command">
+
+<input
+id="commandInput"
+placeholder="Type Minecraft command..."
+onkeydown="commandKey(event)"
+>
+
+<button class="btn"
+onclick="sendCommand()">
+Send
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FILES
+===================================================== -->
+
+<section id="files" class="page">
+
+<h1 class="page-title">
+File Manager
+</h1>
+
+<p class="page-description">
+MoonSMP files.
+</p>
+
+
+<div class="files">
+
+<div class="file">
+
+<span class="file-name">
+📁 world
+</span>
+
+<span class="file-type">
+Folder
+</span>
+
+</div>
+
+
+<div class="file">
+
+<span class="file-name">
+📁 plugins
+</span>
+
+<span class="file-type">
+Folder
+</span>
+
+</div>
+
+
+<div class="file">
+
+<span class="file-name">
+📁 logs
+</span>
+
+<span class="file-type">
+Folder
+</span>
+
+</div>
+
+
+<div class="file">
+
+<span class="file-name">
+📄 server.properties
+</span>
+
+<span class="file-type">
+Config
+</span>
+
+</div>
+
+
+<div class="file">
+
+<span class="file-name">
+📄 eula.txt
+</span>
+
+<span class="file-type">
+Text
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     OPERATOR
+===================================================== -->
+
+<section id="operator" class="page">
+
+<h1 class="page-title">
+Operator Panel
+</h1>
+
+<p class="page-description">
+MoonNodes administration.
+</p>
+
+
+<div class="operator">
+
+<div class="operator-badge">
+OWNER / OPERATOR
+</div>
+
+<h2>
+MoonNodes Control Center
+</h2>
+
+<br>
+
+<p>
+Operator Email:
+</p>
+
+<p>
+<b>
+haideraki5522@gmail.com
+</b>
+</p>
+
+<br>
+
+<p>
+Node 1:
+<span class="green">
+● Online
+</span>
+</p>
+
+<p>
+Node 2:
+<span class="green">
+● Online
+</span>
+</p>
+
+<p>
+Node 3:
+<span class="green">
+● Online
+</span>
+</p>
+
+<br>
+
+<button class="btn restart"
+onclick="restartServer('MoonSMP')">
+Restart MoonSMP
+</button>
+
+<button class="btn restart"
+onclick="restartServer('StrengthSMP')">
+Restart StrengthSMP
+</button>
+
+<button class="btn restart"
+onclick="restartServer('SurvivalSMP')">
+Restart SurvivalSMP
+</button>
+
+</div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+     RESTART MODAL
+===================================================== -->
+
+<div class="modal" id="restartModal">
+
+<div class="modal-box">
+
+<h2>
+↻ Server Restart
+</h2>
+
+<p id="restartText">
+Preparing restart...
+</p>
+
+<div class="countdown"
+id="countdown">
+10
+</div>
+
+<div>
+
+<button class="btn restart"
+onclick="confirmRestart()">
+Confirm Restart
+</button>
+
+<button class="btn"
+onclick="cancelRestart()">
+Cancel
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   MOONNODES JAVASCRIPT
+========================================================= */
+
+let selectedServer = "";
+
+let restartInterval = null;
+
+let restartNumber = 10;
+
+
+/* PAGE */
+
+function page(id,button){
+
+    document
+    .querySelectorAll(".page")
+    .forEach(function(item){
+
+        item.classList.remove("active");
+
+    });
+
+
+    document
+    .getElementById(id)
+    .classList.add("active");
+
+
+    document
+    .querySelectorAll(".nav")
+    .forEach(function(item){
+
+        item.classList.remove("active");
+
+    });
+
+
+    button.classList.add("active");
+
+}
+
+
+/* CONSOLE */
+
+function log(message,type=""){
+
+    const box =
+        document.getElementById("console");
+
+    const line =
+        document.createElement("div");
+
+    if(type){
+
+        line.className =
+            "console-" + type;
+
+    }
+
+    line.innerText =
+        "[MoonNodes] " + message;
+
+    box.appendChild(line);
+
+    box.scrollTop =
+        box.scrollHeight;
+
+}
+
+
+/* START */
+
+function startServer(name){
+
+    log(
+        "Starting " + name + "..."
+    );
+
+    setTimeout(function(){
+
+        log(
+            name + " is starting..."
+        );
+
+    },800);
+
+
+    setTimeout(function(){
+
+        log(
+            name + " is now online.",
+            "success"
+        );
+
+    },1800);
+
+}
+
+
+/* STOP */
+
+function stopServer(name){
+
+    log(
+        "Stopping " + name + "..."
+    );
+
+    setTimeout(function(){
+
+        log(
+            name + " has stopped.",
+            "warning"
+        );
+
+    },1200);
+
+}
+
+
+/* OPEN RESTART */
+
+function restartServer(name){
+
+    selectedServer = name;
+
+    restartNumber = 10;
+
+    document
+    .getElementById("restartText")
+    .innerText =
+        name +
+        " will restart in:";
+
+
+    document
+    .getElementById("countdown")
+    .innerText =
+        restartNumber;
+
+
+    document
+    .getElementById("restartModal")
+    .classList.add("show");
+
+}
+
+
+/* CANCEL */
+
+function cancelRestart(){
+
+    clearInterval(restartInterval);
+
+    document
+    .getElementById("restartModal")
+    .classList.remove("show");
+
+}
+
+
+/* CONFIRM */
+
+function confirmRestart(){
+
+    clearInterval(restartInterval);
+
+    restartNumber = 10;
+
+
+    document
+    .getElementById("countdown")
+    .innerText =
+        restartNumber;
+
+
+    log(
+        "Restart requested for " +
+        selectedServer,
+        "warning"
+    );
+
+
+    restartInterval =
+        setInterval(function(){
+
+            restartNumber--;
+
+
+            document
+            .getElementById("countdown")
+            .innerText =
+                restartNumber;
+
+
+            if(restartNumber <= 0){
+
+                clearInterval
