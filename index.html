@@ -1,116 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MoonNodes | Hosting Panel</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MoonNodes — Premium Minecraft Hosting</title>
 
 <style>
-
-/* =========================================================
-   MOONNODES
-   PREMIUM MINECRAFT HOSTING PANEL
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
 body{
     background:#050505;
     color:#fff;
     font-family:Arial,Helvetica,sans-serif;
-    min-height:100vh;
 }
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
 
-/* HEADER */
+.hidden{display:none!important}
 
-.header{
-    height:70px;
-    padding:0 25px;
-    background:#080808;
-    border-bottom:1px solid #222;
-
+.auth{
+    min-height:100vh;
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;
+    padding:20px;
+    background:
+    radial-gradient(circle at top,#252525 0,#0b0b0b 35%,#050505 70%);
+}
+.authbox{
+    width:100%;
+    max-width:430px;
+    background:#0c0c0c;
+    border:1px solid #292929;
+    border-radius:18px;
+    padding:32px;
+    box-shadow:0 30px 100px #000;
+}
+.logo{
+    text-align:center;
+    font-size:30px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+.logo span{color:#777}
+.subtitle{
+    text-align:center;
+    color:#777;
+    margin-bottom:25px;
+}
+input,select,textarea{
+    width:100%;
+    background:#101010;
+    color:#fff;
+    border:1px solid #292929;
+    border-radius:8px;
+    padding:12px;
+    margin:6px 0;
+    outline:none;
+}
+textarea{min-height:120px;resize:vertical}
+.primary{
+    width:100%;
+    background:#fff;
+    color:#000;
+    border:0;
+    border-radius:8px;
+    padding:13px;
+    font-weight:800;
+    margin-top:10px;
+}
+.switch{
+    color:#888;
+    text-align:center;
+    margin-top:18px;
+    cursor:pointer;
+}
+.error{
+    color:#ff6666;
+    min-height:20px;
+    margin-bottom:5px;
+}
 
+#app{display:none}
+
+header{
+    height:68px;
+    background:#080808;
+    border-bottom:1px solid #222;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 25px;
     position:sticky;
     top:0;
     z-index:100;
 }
-
-.logo{
-    font-size:23px;
-    font-weight:bold;
+.headerlogo{
+    font-size:22px;
+    font-weight:900;
 }
-
-.logo span{
-    color:#777;
-}
-
-.user{
+.headerlogo span{color:#777}
+.account{
     color:#888;
     font-size:13px;
 }
 
-/* LAYOUT */
-
 .layout{
     display:flex;
-    min-height:calc(100vh - 70px);
+    min-height:calc(100vh - 68px);
 }
-
-/* SIDEBAR */
 
 .sidebar{
     width:245px;
     background:#080808;
     border-right:1px solid #222;
-    padding:20px 12px;
+    padding:15px 12px;
 }
 
-.sidebar-title{
+.section{
     color:#555;
-    font-size:11px;
-    margin:18px 12px 10px;
+    font-size:10px;
     text-transform:uppercase;
+    margin:18px 10px 7px;
 }
 
 .nav{
     width:100%;
-    padding:13px;
-    margin-bottom:6px;
-
-    background:transparent;
-    border:1px solid transparent;
-    border-radius:8px;
-
-    color:#999;
     text-align:left;
-
-    cursor:pointer;
+    background:transparent;
+    border:0;
+    color:#999;
+    border-radius:8px;
+    padding:12px;
+    margin:3px 0;
 }
-
 .nav:hover{
-    background:#111;
+    background:#151515;
     color:#fff;
 }
-
 .nav.active{
     background:#fff;
     color:#000;
 }
-
-/* MAIN */
 
 .main{
     flex:1;
@@ -118,1125 +148,584 @@ body{
     max-width:1600px;
 }
 
-.page{
-    display:none;
-}
+.page{display:none}
+.page.active{display:block}
 
-.page.active{
-    display:block;
+h1{
+    font-size:30px;
+    margin-bottom:7px;
 }
-
-.page-title{
-    font-size:31px;
-    margin-bottom:8px;
-}
-
-.page-description{
+.desc{
     color:#666;
-    margin-bottom:30px;
+    margin-bottom:25px;
 }
-
-/* STATS */
 
 .stats{
     display:grid;
     grid-template-columns:repeat(5,1fr);
-    gap:15px;
-    margin-bottom:25px;
+    gap:13px;
+    margin-bottom:22px;
 }
 
-.stat{
+.card{
     background:#0d0d0d;
     border:1px solid #242424;
     border-radius:12px;
     padding:20px;
 }
-
-.stat-title{
+.card small{
     color:#666;
-    font-size:11px;
-    text-transform:uppercase;
-    margin-bottom:10px;
+    display:block;
+    margin-bottom:8px;
+}
+.card strong{
+    font-size:24px;
 }
 
-.stat-value{
-    font-size:25px;
-    font-weight:bold;
-}
+.green{color:#55ff88}
+.red{color:#ff5555}
+.yellow{color:#ffd84d}
+.gray{color:#777}
 
-.green{
-    color:#55ff88;
-}
-
-.red{
-    color:#ff5555;
-}
-
-.yellow{
-    color:#ffd84d;
-}
-
-/* SERVER */
-
-.server{
+.panel,.server,.node,.ticket,.plan{
     background:#0d0d0d;
     border:1px solid #242424;
-    border-radius:14px;
-    padding:25px;
-    margin-bottom:18px;
+    border-radius:13px;
+    padding:22px;
+    margin-bottom:15px;
 }
 
-.server-head{
+.serverhead{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:20px;
 }
-
-.server-name{
-    font-size:22px;
+.servername{
+    font-size:21px;
     font-weight:bold;
 }
-
-.server-address{
+.address{
+    font-family:monospace;
     color:#666;
     margin-top:6px;
-    font-size:13px;
 }
 
-.server-info{
+.infogrid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    margin-top:22px;
+    gap:10px;
+    margin-top:18px;
 }
-
 .info{
-    padding:15px;
-    background:#090909;
-    border:1px solid #202020;
+    background:#080808;
+    border:1px solid #1c1c1c;
+    padding:13px;
     border-radius:8px;
 }
-
 .info small{
     color:#555;
     display:block;
-    margin-bottom:7px;
+    margin-bottom:6px;
 }
-
-.status{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    color:#55ff88;
-    font-size:13px;
-}
-
-.dot{
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:#55ff88;
-    box-shadow:0 0 12px #55ff88;
-}
-
-/* BUTTONS */
 
 .actions{
     display:flex;
     gap:8px;
     flex-wrap:wrap;
-    margin-top:22px;
+    margin-top:18px;
 }
-
 .btn{
-    padding:11px 17px;
-    border-radius:7px;
-    border:1px solid #292929;
     background:#171717;
     color:#fff;
-    cursor:pointer;
-    font-weight:bold;
+    border:1px solid #292929;
+    border-radius:7px;
+    padding:10px 14px;
 }
-
-.btn:hover{
-    background:#252525;
-}
-
+.btn:hover{background:#252525}
 .start{
     background:#55ff88;
     color:#000;
 }
-
 .stop{
     background:#ff5555;
     color:#fff;
 }
-
-.restart{
+.white{
     background:#fff;
     color:#000;
 }
 
-/* NODES */
-
-.nodes{
+.grid3{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:18px;
+    gap:15px;
 }
 
-.node{
-    background:#0d0d0d;
-    border:1px solid #242424;
-    border-radius:13px;
-    padding:22px;
-}
-
-.node h2{
-    margin-bottom:8px;
-}
-
-.node-host{
-    color:#777;
-    font-family:monospace;
-    margin-bottom:18px;
-}
-
-.node-status{
-    color:#55ff88;
-    margin-bottom:18px;
-}
-
-.node-stats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.node-stat{
-    background:#080808;
-    padding:12px;
-    border-radius:7px;
-}
-
-.node-stat small{
-    display:block;
-    color:#555;
-    margin-bottom:5px;
-}
-
-/* CONSOLE */
-
-.console{
-    height:410px;
-    padding:18px;
-
-    background:#000;
-    border:1px solid #222;
-    border-radius:10px;
-
-    overflow:auto;
-
-    font-family:monospace;
-    font-size:13px;
-    line-height:1.8;
-
-    color:#aaa;
-}
-
-.console-success{
-    color:#55ff88;
-}
-
-.console-warning{
-    color:#ffd84d;
-}
-
-.console-error{
-    color:#ff5555;
-}
-
-.command{
-    display:flex;
-    gap:8px;
-    margin-top:12px;
-}
-
-.command input{
-    flex:1;
-    padding:13px;
-
-    background:#0d0d0d;
-    color:#fff;
-
-    border:1px solid #292929;
-    border-radius:7px;
-    outline:none;
-}
-
-/* FILES */
-
-.files{
+.list{
     background:#0d0d0d;
     border:1px solid #242424;
     border-radius:12px;
     overflow:hidden;
 }
-
-.file{
+.row{
     display:flex;
     justify-content:space-between;
+    align-items:center;
+    padding:16px 20px;
+    border-bottom:1px solid #202020;
+}
+.row:last-child{border-bottom:0}
 
-    padding:17px 20px;
+.console{
+    background:#000;
+    border:1px solid #222;
+    border-radius:10px;
+    height:400px;
+    overflow:auto;
+    padding:18px;
+    font-family:monospace;
+    line-height:1.8;
+    color:#aaa;
+}
+.command{
+    display:flex;
+    gap:8px;
+}
+.command input{flex:1}
 
-    border-bottom:1px solid #1d1d1d;
+.progress{
+    height:8px;
+    background:#171717;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:8px;
+}
+.progress div{
+    height:100%;
+    background:#fff;
 }
 
-.file:last-child{
-    border-bottom:0;
-}
-
-.file-name{
-    color:#ddd;
-}
-
-.file-type{
-    color:#555;
-}
-
-/* OPERATOR */
-
-.operator{
-    background:#0d0d0d;
-    border:1px solid #333;
-    border-radius:13px;
-    padding:25px;
-}
-
-.operator-badge{
+.badge{
     display:inline-block;
-
     padding:6px 10px;
-    margin-bottom:15px;
-
+    border-radius:20px;
     background:#fff;
     color:#000;
-
-    border-radius:20px;
     font-size:10px;
     font-weight:bold;
 }
 
-/* MODAL */
-
 .modal{
     position:fixed;
     inset:0;
-
+    background:#000c;
     display:none;
     align-items:center;
     justify-content:center;
-
-    background:rgba(0,0,0,.78);
-
     z-index:500;
 }
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
+.modal.show{display:flex}
+.modalbox{
     width:90%;
-    max-width:450px;
-
+    max-width:430px;
     background:#0d0d0d;
     border:1px solid #333;
     border-radius:15px;
-
-    padding:30px;
+    padding:28px;
     text-align:center;
 }
-
-.modal-box p{
-    color:#777;
-    margin-top:10px;
-}
-
-.countdown{
+.count{
     font-size:55px;
+    margin:20px;
+}
+
+.toast{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#fff;
+    color:#000;
+    padding:13px 18px;
+    border-radius:9px;
+    display:none;
+    z-index:999;
     font-weight:bold;
-    margin:25px;
 }
 
-/* RESPONSIVE */
-
-@media(max-width:1100px){
-
-    .stats{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    .nodes{
-        grid-template-columns:1fr;
-    }
-
+@media(max-width:1000px){
+    .stats{grid-template-columns:repeat(3,1fr)}
+    .grid3{grid-template-columns:1fr 1fr}
 }
-
-@media(max-width:800px){
-
-    .layout{
-        display:block;
-    }
-
+@media(max-width:750px){
+    .layout{display:block}
     .sidebar{
         width:100%;
         border-right:0;
         border-bottom:1px solid #222;
     }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .server-info{
-        grid-template-columns:1fr 1fr;
-    }
-
+    .stats{grid-template-columns:1fr 1fr}
+    .infogrid{grid-template-columns:1fr 1fr}
+    .grid3{grid-template-columns:1fr}
 }
-
-@media(max-width:550px){
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-    .server-info{
-        grid-template-columns:1fr;
-    }
-
-    .main{
-        padding:18px;
-    }
-
+@media(max-width:500px){
+    .main{padding:18px}
+    .stats{grid-template-columns:1fr}
+    .infogrid{grid-template-columns:1fr}
 }
-
 </style>
-
 </head>
 
 <body>
 
+<!-- ================= LOGIN ================= -->
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<div id="auth" class="auth">
 
-<header class="header">
+<div class="authbox">
 
-    <div class="logo">
-        🌙 MoonNodes <span>Panel</span>
-    </div>
+<div class="logo">
+🌙 MoonNodes <span>Hosting</span>
+</div>
 
-    <div class="user">
-        haideraki5522@gmail.com
-    </div>
+<div id="authSubtitle" class="subtitle">
+Login to your premium hosting panel
+</div>
+
+<div id="authError" class="error"></div>
+
+<form id="loginForm">
+
+<input
+id="loginEmail"
+type="email"
+placeholder="Email"
+required>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+required>
+
+<button class="primary">
+Login
+</button>
+
+</form>
+
+<div
+id="toSignup"
+class="switch"
+onclick="showSignup()">
+Don't have an account? Create one
+</div>
+
+
+<form id="signupForm" class="hidden">
+
+<input
+id="signupName"
+placeholder="Username"
+required>
+
+<input
+id="signupEmail"
+type="email"
+placeholder="Email"
+required>
+
+<input
+id="signupPassword"
+type="password"
+placeholder="Password"
+required>
+
+<button class="primary">
+Create Account
+</button>
+
+</form>
+
+<div
+id="toLogin"
+class="switch hidden"
+onclick="showLogin()">
+Already have an account? Login
+</div>
+
+</div>
+</div>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app">
+
+<header>
+
+<div class="headerlogo">
+🌙 MoonNodes <span>Panel</span>
+</div>
+
+<div
+class="account"
+id="account">
+Not logged in
+</div>
 
 </header>
 
 
 <div class="layout">
 
-
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
-
 <aside class="sidebar">
 
-    <div class="sidebar-title">
-        Main
-    </div>
+<div class="section">Overview</div>
 
-    <button class="nav active"
-            onclick="page('dashboard',this)">
-        📊 Dashboard
-    </button>
+<button
+class="nav active"
+onclick="page('dashboard',this)">
+📊 Dashboard
+</button>
 
-    <button class="nav"
-            onclick="page('servers',this)">
-        🖥️ Servers
-    </button>
-
-
-    <div class="sidebar-title">
-        Infrastructure
-    </div>
-
-    <button class="nav"
-            onclick="page('nodes',this)">
-        🖧 Nodes
-    </button>
+<button
+class="nav"
+onclick="page('servers',this)">
+🖥️ My Servers
+</button>
 
 
-    <div class="sidebar-title">
-        Server Management
-    </div>
+<div class="section">Server Management</div>
 
-    <button class="nav"
-            onclick="page('console',this)">
-        💻 Console
-    </button>
+<button
+class="nav"
+onclick="page('console',this)">
+💻 Console
+</button>
 
-    <button class="nav"
-            onclick="page('files',this)">
-        📁 Files
-    </button>
+<button
+class="nav"
+onclick="page('files',this)">
+📁 Files
+</button>
+
+<button
+class="nav"
+onclick="page('plugins',this)">
+🧩 Plugins
+</button>
+
+<button
+class="nav"
+onclick="page('backups',this)">
+💾 Backups
+</button>
+
+<button
+class="nav"
+onclick="page('schedules',this)">
+⏰ Schedules
+</button>
 
 
-    <div class="sidebar-title">
-        Administration
-    </div>
+<div class="section">Infrastructure</div>
 
-    <button class="nav"
-            onclick="page('operator',this)">
-        🛠️ Operator
-    </button>
+<button
+class="nav"
+onclick="page('nodes',this)">
+🖧 Nodes
+</button>
+
+
+<div class="section">Account</div>
+
+<button
+class="nav"
+onclick="page('billing',this)">
+💳 Billing
+</button>
+
+<button
+class="nav"
+onclick="page('support',this)">
+🎫 Support
+</button>
+
+<button
+class="nav"
+onclick="page('settings',this)">
+⚙️ Settings
+</button>
+
+
+<div class="section">Administration</div>
+
+<button
+id="adminButton"
+class="nav"
+onclick="page('admin',this)">
+🛠️ Operator
+</button>
+
+<button
+class="nav"
+onclick="logout()">
+🚪 Logout
+</button>
 
 </aside>
 
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main class="main">
 
 
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
+<!-- DASHBOARD -->
 
-<section id="dashboard" class="page active">
+<section
+id="dashboard"
+class="page active">
 
-<h1 class="page-title">
-Dashboard
-</h1>
+<h1>Dashboard</h1>
 
-<p class="page-description">
-MoonNodes hosting overview.
+<p class="desc">
+Welcome to MoonNodes premium hosting.
 </p>
-
 
 <div class="stats">
 
-<div class="stat">
-<div class="stat-title">Servers</div>
-<div class="stat-value">4</div>
+<div class="card">
+<small>MY SERVERS</small>
+<strong id="statServers">3</strong>
 </div>
 
-<div class="stat">
-<div class="stat-title">Online</div>
-<div class="stat-value green">3</div>
+<div class="card">
+<small>ONLINE</small>
+<strong
+id="statOnline"
+class="green">
+2
+</strong>
 </div>
 
-<div class="stat">
-<div class="stat-title">Nodes</div>
-<div class="stat-value">3</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">RAM</div>
-<div class="stat-value">12 GB</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Network</div>
-<div class="stat-value green">Online</div>
-</div>
-
-</div>
-
-
-<!-- SERVER 1 -->
-
-<div class="server">
-
-<div class="server-head">
-
-<div>
-
-<div class="server-name">
-🌙 MoonSMP
-</div>
-
-<div class="server-address">
-node1.moonnodes.net:25565
-</div>
-
-</div>
-
-<div class="status">
-
-<div class="dot"></div>
-
-Online
-
-</div>
-
-</div>
-
-
-<div class="server-info">
-
-<div class="info">
-
-<small>NODE</small>
-
-Node 1
-
-</div>
-
-<div class="info">
-
+<div class="card">
 <small>RAM</small>
-
-4 GB
-
+<strong>12 GB</strong>
 </div>
 
-<div class="info">
-
-<small>CPU</small>
-
-2 Cores
-
+<div class="card">
+<small>STORAGE</small>
+<strong>60 GB</strong>
 </div>
 
-<div class="info">
-
-<small>PORT</small>
-
-25565
-
-</div>
-
-</div>
-
-
-<div class="actions">
-
-<button class="btn start"
-onclick="startServer('MoonSMP')">
-▶ Start
-</button>
-
-<button class="btn stop"
-onclick="stopServer('MoonSMP')">
-■ Stop
-</button>
-
-<button class="btn restart"
-onclick="restartServer('MoonSMP')">
-↻ Restart
-</button>
-
-</div>
-
-</div>
-
-
-<!-- SERVER 2 -->
-
-<div class="server">
-
-<div class="server-head">
-
-<div>
-
-<div class="server-name">
-⚔️ StrengthSMP
-</div>
-
-<div class="server-address">
-node2.moonnodes.net:25566
-</div>
-
-</div>
-
-<div class="status">
-
-<div class="dot"></div>
-
+<div class="card">
+<small>NETWORK</small>
+<strong class="green">
 Online
-
+</strong>
 </div>
 
 </div>
 
-
-<div class="server-info">
-
-<div class="info">
-<small>NODE</small>
-Node 2
-</div>
-
-<div class="info">
-<small>RAM</small>
-4 GB
-</div>
-
-<div class="info">
-<small>CPU</small>
-2 Cores
-</div>
-
-<div class="info">
-<small>PORT</small>
-25566
-</div>
-
-</div>
-
-
-<div class="actions">
-
-<button class="btn start"
-onclick="startServer('StrengthSMP')">
-▶ Start
-</button>
-
-<button class="btn stop"
-onclick="stopServer('StrengthSMP')">
-■ Stop
-</button>
-
-<button class="btn restart"
-onclick="restartServer('StrengthSMP')">
-↻ Restart
-</button>
-
-</div>
-
-</div>
-
-
-<!-- SERVER 3 -->
-
-<div class="server">
-
-<div class="server-head">
-
-<div>
-
-<div class="server-name">
-🔥 SurvivalSMP
-</div>
-
-<div class="server-address">
-node3.moonnodes.net:25567
-</div>
-
-</div>
-
-<div class="status">
-
-<div class="dot"></div>
-
-Online
-
-</div>
-
-</div>
-
-
-<div class="server-info">
-
-<div class="info">
-<small>NODE</small>
-Node 3
-</div>
-
-<div class="info">
-<small>RAM</small>
-4 GB
-</div>
-
-<div class="info">
-<small>CPU</small>
-2 Cores
-</div>
-
-<div class="info">
-<small>PORT</small>
-25567
-</div>
-
-</div>
-
-
-<div class="actions">
-
-<button class="btn start"
-onclick="startServer('SurvivalSMP')">
-▶ Start
-</button>
-
-<button class="btn stop"
-onclick="stopServer('SurvivalSMP')">
-■ Stop
-</button>
-
-<button class="btn restart"
-onclick="restartServer('SurvivalSMP')">
-↻ Restart
-</button>
-
-</div>
-
-</div>
+<div id="dashboardServers"></div>
 
 </section>
 
 
-<!-- =====================================================
-     SERVERS
-===================================================== -->
+<!-- SERVERS -->
 
-<section id="servers" class="page">
+<section
+id="servers"
+class="page">
 
-<h1 class="page-title">
-My Servers
-</h1>
+<h1>My Servers</h1>
 
-<p class="page-description">
-All servers and their assigned nodes.
+<p class="desc">
+You can only manage servers belonging to your account.
 </p>
 
+<div class="panel">
 
-<div class="server">
+<h2>Create Server</h2>
 
-<h2>🌙 MoonSMP</h2>
+<input
+id="newServerName"
+placeholder="Server name">
 
-<br>
+<select id="newNode">
 
-<p>
-Node:
-<b>node1.moonnodes.net</b>
-</p>
+<option>
+Node 1 — node1.moonnodes.net
+</option>
 
-<p>
-Port:
-<b>25565</b>
-</p>
+<option>
+Node 2 — node2.moonnodes.net
+</option>
 
-<p>
-Address:
-<b>node1.moonnodes.net:25565</b>
-</p>
+<option>
+Node 3 — node3.moonnodes.net
+</option>
 
-<br>
+</select>
 
-<span class="green">
-● Online
-</span>
+<input
+id="newPort"
+type="number"
+placeholder="Server port">
+
+<button
+class="btn white"
+onclick="createServer()">
+＋ Create Server
+</button>
 
 </div>
 
-
-<div class="server">
-
-<h2>⚔️ StrengthSMP</h2>
-
-<br>
-
-<p>
-Node:
-<b>node2.moonnodes.net</b>
-</p>
-
-<p>
-Port:
-<b>25566</b>
-</p>
-
-<p>
-Address:
-<b>node2.moonnodes.net:25566</b>
-</p>
-
-<br>
-
-<span class="green">
-● Online
-</span>
-
-</div>
-
-
-<div class="server">
-
-<h2>🔥 SurvivalSMP</h2>
-
-<br>
-
-<p>
-Node:
-<b>node3.moonnodes.net</b>
-</p>
-
-<p>
-Port:
-<b>25567</b>
-</p>
-
-<p>
-Address:
-<b>node3.moonnodes.net:25567</b>
-</p>
-
-<br>
-
-<span class="green">
-● Online
-</span>
-
-</div>
+<div id="serverList"></div>
 
 </section>
 
 
-<!-- =====================================================
-     NODES
-===================================================== -->
+<!-- CONSOLE -->
 
-<section id="nodes" class="page">
+<section
+id="console"
+class="page">
 
-<h1 class="page-title">
-MoonNodes Nodes
-</h1>
+<h1>Console</h1>
 
-<p class="page-description">
-Manage your Minecraft infrastructure.
+<p class="desc">
+Live Minecraft server console.
 </p>
 
-
-<div class="nodes">
-
-
-<div class="node">
-
-<h2>
-🖥️ Node 1
-</h2>
-
-<div class="node-host">
-node1.moonnodes.net
-</div>
-
-<div class="node-status">
-● Online
-</div>
-
-<div class="node-stats">
-
-<div class="node-stat">
-
-<small>CPU</small>
-
-35%
-
-</div>
-
-<div class="node-stat">
-
-<small>RAM</small>
-
-4 / 8 GB
-
-</div>
-
-<div class="node-stat">
-
-<small>Servers</small>
-
-1
-
-</div>
-
-<div class="node-stat">
-
-<small>Ports</small>
-
-25565+
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="node">
-
-<h2>
-🖥️ Node 2
-</h2>
-
-<div class="node-host">
-node2.moonnodes.net
-</div>
-
-<div class="node-status">
-● Online
-</div>
-
-<div class="node-stats">
-
-<div class="node-stat">
-
-<small>CPU</small>
-
-41%
-
-</div>
-
-<div class="node-stat">
-
-<small>RAM</small>
-
-5 / 8 GB
-
-</div>
-
-<div class="node-stat">
-
-<small>Servers</small>
-
-1
-
-</div>
-
-<div class="node-stat">
-
-<small>Ports</small>
-
-25566+
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="node">
-
-<h2>
-🖥️ Node 3
-</h2>
-
-<div class="node-host">
-node3.moonnodes.net
-</div>
-
-<div class="node-status">
-● Online
-</div>
-
-<div class="node-stats">
-
-<div class="node-stat">
-
-<small>CPU</small>
-
-27%
-
-</div>
-
-<div class="node-stat">
-
-<small>RAM</small>
-
-3 / 8 GB
-
-</div>
-
-<div class="node-stat">
-
-<small>Servers</small>
-
-1
-
-</div>
-
-<div class="node-stat">
-
-<small>Ports</small>
-
-25567+
-
-</div>
-
-</div>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<!-- =====================================================
-     CONSOLE
-===================================================== -->
-
-<section id="console" class="page">
-
-<h1 class="page-title">
-Server Console
-</h1>
-
-<p class="page-description">
-MoonSMP live console.
-</p>
-
-
-<div class="console" id="console">
-
-<div class="console-success">
-[MoonNodes] Node 1 connected.
-</div>
-
-[Server] Starting Minecraft...<br>
-
-[Server] Loading properties...<br>
-
+<div
+id="consoleOutput"
+class="console">
+
+<span class="green">
+[MoonNodes] Console connected.
+</span><br>
+
+[Server] Loading server...<br>
 [Server] Loading world...<br>
-
 [Server] Loading plugins...<br>
 
-<div class="console-success">
-[Server] Done! Server is ready.
-</div>
-
-[Server] Listening on node1.moonnodes.net:25565.<br>
+<span class="green">
+[Server] Server ready.
+</span>
 
 </div>
 
+<br>
 
 <div class="command">
 
 <input
 id="commandInput"
-placeholder="Type Minecraft command..."
-onkeydown="commandKey(event)"
->
+placeholder="Enter Minecraft command..."
+onkeydown="commandKey(event)">
 
-<button class="btn"
+<button
+class="btn white"
 onclick="sendCommand()">
 Send
 </button>
@@ -1246,84 +735,219 @@ Send
 </section>
 
 
-<!-- =====================================================
-     FILES
-===================================================== -->
+<!-- FILES -->
 
-<section id="files" class="page">
+<section
+id="files"
+class="page">
 
-<h1 class="page-title">
-File Manager
-</h1>
+<h1>File Manager</h1>
 
-<p class="page-description">
-MoonSMP files.
+<p class="desc">
+Manage your server files.
 </p>
 
+<div class="list">
 
-<div class="files">
+<div class="row">
+<span>📁 world</span>
+<span class="gray">Folder</span>
+</div>
 
-<div class="file">
+<div class="row">
+<span>📁 world_nether</span>
+<span class="gray">Folder</span>
+</div>
 
-<span class="file-name">
-📁 world
-</span>
+<div class="row">
+<span>📁 plugins</span>
+<span class="gray">Folder</span>
+</div>
 
-<span class="file-type">
-Folder
-</span>
+<div class="row">
+<span>📁 logs</span>
+<span class="gray">Folder</span>
+</div>
+
+<div class="row">
+<span>📄 server.properties</span>
+<span class="gray">Config</span>
+</div>
+
+<div class="row">
+<span>📄 eula.txt</span>
+<span class="gray">Text</span>
+</div>
 
 </div>
 
+<br>
 
-<div class="file">
+<button
+class="btn white"
+onclick="toast('File upload requires a backend.')">
+📤 Upload File
+</button>
 
-<span class="file-name">
-📁 plugins
+</section>
+
+
+<!-- PLUGINS -->
+
+<section
+id="plugins"
+class="page">
+
+<h1>Plugins</h1>
+
+<p class="desc">
+Installed server plugins.
+</p>
+
+<div class="list">
+
+<div class="row">
+<div>
+<b>EssentialsX</b>
+<br>
+<span class="gray">
+Commands
 </span>
+</div>
 
-<span class="file-type">
-Folder
+<span class="green">
+Enabled
 </span>
+</div>
+
+<div class="row">
+<div>
+<b>LuckPerms</b>
+<br>
+<span class="gray">
+Permissions
+</span>
+</div>
+
+<span class="green">
+Enabled
+</span>
+</div>
+
+<div class="row">
+<div>
+<b>Vault</b>
+<br>
+<span class="gray">
+Economy API
+</span>
+</div>
+
+<span class="green">
+Enabled
+</span>
+</div>
 
 </div>
 
+<br>
 
-<div class="file">
+<button
+class="btn white"
+onclick="toast('Plugin installation requires a backend.')">
+＋ Install Plugin
+</button>
 
-<span class="file-name">
-📁 logs
-</span>
+</section>
 
-<span class="file-type">
-Folder
-</span>
+
+<!-- BACKUPS -->
+
+<section
+id="backups"
+class="page">
+
+<h1>Backups</h1>
+
+<p class="desc">
+Protect your Minecraft worlds.
+</p>
+
+<div class="panel">
+
+<h3>Automatic Backups</h3>
+
+<p class="gray">
+Daily backups enabled.
+</p>
+
+<div class="actions">
+
+<button
+class="btn white"
+onclick="toast('Backup started.')">
+Create Backup
+</button>
 
 </div>
 
+</div>
 
-<div class="file">
+<div class="list">
 
-<span class="file-name">
-📄 server.properties
-</span>
+<div class="row">
+<span>📦 MoonSMP — Today</span>
+<span class="green">Complete</span>
+</div>
 
-<span class="file-type">
-Config
-</span>
+<div class="row">
+<span>📦 MoonSMP — Yesterday</span>
+<span class="green">Complete</span>
+</div>
+
+<div class="row">
+<span>📦 MoonSMP — 2 days ago</span>
+<span class="green">Complete</span>
+</div>
 
 </div>
 
+</section>
 
-<div class="file">
 
-<span class="file-name">
-📄 eula.txt
-</span>
+<!-- SCHEDULES -->
 
-<span class="file-type">
-Text
-</span>
+<section
+id="schedules"
+class="page">
+
+<h1>Schedules</h1>
+
+<p class="desc">
+Automate server tasks.
+</p>
+
+<div class="panel">
+
+<h3>Daily Restart</h3>
+
+<p class="gray">
+Restart server every day at 04:00.
+</p>
+
+<div class="actions">
+
+<button
+class="btn start"
+onclick="toast('Schedule enabled.')">
+Enabled
+</button>
+
+<button
+class="btn"
+onclick="toast('Schedule editor requires backend.')">
+Edit
+</button>
 
 </div>
 
@@ -1332,38 +956,331 @@ Text
 </section>
 
 
-<!-- =====================================================
-     OPERATOR
-===================================================== -->
+<!-- NODES -->
 
-<section id="operator" class="page">
+<section
+id="nodes"
+class="page">
 
-<h1 class="page-title">
-Operator Panel
-</h1>
+<h1>Nodes</h1>
 
-<p class="page-description">
-MoonNodes administration.
+<p class="desc">
+MoonNodes infrastructure.
 </p>
 
+<div class="grid3">
 
-<div class="operator">
+<div class="node">
 
-<div class="operator-badge">
-OWNER / OPERATOR
+<h2>Node 1</h2>
+
+<p class="address">
+node1.moonnodes.net
+</p>
+
+<p class="green">
+● Online
+</p>
+
+<br>
+
+CPU
+
+<div class="progress">
+<div style="width:35%"></div>
 </div>
 
-<h2>
-MoonNodes Control Center
-</h2>
+<br>
+
+RAM
+
+<div class="progress">
+<div style="width:48%"></div>
+</div>
+
+</div>
+
+
+<div class="node">
+
+<h2>Node 2</h2>
+
+<p class="address">
+node2.moonnodes.net
+</p>
+
+<p class="green">
+● Online
+</p>
+
+<br>
+
+CPU
+
+<div class="progress">
+<div style="width:42%"></div>
+</div>
+
+<br>
+
+RAM
+
+<div class="progress">
+<div style="width:61%"></div>
+</div>
+
+</div>
+
+
+<div class="node">
+
+<h2>Node 3</h2>
+
+<p class="address">
+node3.moonnodes.net
+</p>
+
+<p class="green">
+● Online
+</p>
+
+<br>
+
+CPU
+
+<div class="progress">
+<div style="width:29%"></div>
+</div>
+
+<br>
+
+RAM
+
+<div class="progress">
+<div style="width:37%"></div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BILLING -->
+
+<section
+id="billing"
+class="page">
+
+<h1>Billing</h1>
+
+<p class="desc">
+MoonNodes hosting plans.
+</p>
+
+<div class="grid3">
+
+<div class="plan">
+
+<h2>Starter</h2>
+
+<br>
+
+<h1>$2.99</h1>
+
+<p class="gray">
+per month
+</p>
+
+<br>
+
+<p>2 GB RAM</p>
+<p>2 CPU Cores</p>
+<p>20 GB Storage</p>
+
+<br>
+
+<button
+class="btn white"
+onclick="toast('Checkout requires payment backend.')">
+Choose Plan
+</button>
+
+</div>
+
+
+<div class="plan">
+
+<h2>Premium</h2>
+
+<br>
+
+<h1>$5.99</h1>
+
+<p class="gray">
+per month
+</p>
+
+<br>
+
+<p>4 GB RAM</p>
+<p>3 CPU Cores</p>
+<p>50 GB Storage</p>
+
+<br>
+
+<button
+class="btn white"
+onclick="toast('Checkout requires payment backend.')">
+Choose Plan
+</button>
+
+</div>
+
+
+<div class="plan">
+
+<h2>Pro</h2>
+
+<br>
+
+<h1>$9.99</h1>
+
+<p class="gray">
+per month
+</p>
+
+<br>
+
+<p>8 GB RAM</p>
+<p>4 CPU Cores</p>
+<p>100 GB Storage</p>
+
+<br>
+
+<button
+class="btn white"
+onclick="toast('Checkout requires payment backend.')">
+Choose Plan
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SUPPORT -->
+
+<section
+id="support"
+class="page">
+
+<h1>Support</h1>
+
+<p class="desc">
+Contact MoonNodes support.
+</p>
+
+<div class="panel">
+
+<input
+id="ticketSubject"
+placeholder="Subject">
+
+<textarea
+id="ticketMessage"
+placeholder="Describe your problem...">
+</textarea>
+
+<button
+class="btn white"
+onclick="createTicket()">
+Create Ticket
+</button>
+
+</div>
+
+<div id="tickets"></div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section
+id="settings"
+class="page">
+
+<h1>Settings</h1>
+
+<p class="desc">
+Manage your account.
+</p>
+
+<div class="panel">
+
+<label>Name</label>
+
+<input
+id="settingName"
+value="Haider">
+
+<label>Email</label>
+
+<input
+id="settingEmail"
+value="haideraki5522@gmail.com"
+readonly>
+
+<label>Theme</label>
+
+<select>
+<option>MoonNodes Dark</option>
+<option>Black & White</option>
+</select>
+
+<br>
+
+<button
+class="btn white"
+onclick="toast('Settings saved.')">
+Save Settings
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section
+id="admin"
+class="page">
+
+<h1>Operator Panel</h1>
+
+<p class="desc">
+Owner administration.
+</p>
+
+<div class="panel">
+
+<span class="badge">
+OWNER
+</span>
+
+<br><br>
+
+<h2>MoonNodes Control Center</h2>
 
 <br>
 
 <p>
-Operator Email:
-</p>
-
-<p>
+Owner:
 <b>
 haideraki5522@gmail.com
 </b>
@@ -1371,43 +1288,62 @@ haideraki5522@gmail.com
 
 <br>
 
-<p>
-Node 1:
-<span class="green">
-● Online
-</span>
-</p>
+<div class="grid3">
 
-<p>
-Node 2:
-<span class="green">
-● Online
-</span>
-</p>
+<div class="info">
+Users
+<br><br>
+<strong>24</strong>
+</div>
 
-<p>
-Node 3:
-<span class="green">
-● Online
-</span>
-</p>
+<div class="info">
+Servers
+<br><br>
+<strong>37</strong>
+</div>
+
+<div class="info">
+Nodes
+<br><br>
+<strong>3</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h3>Node Management</h3>
 
 <br>
 
-<button class="btn restart"
-onclick="restartServer('MoonSMP')">
-Restart MoonSMP
-</button>
+<div class="row">
+<span>
+Node 1 — node1.moonnodes.net
+</span>
+<span class="green">
+Online
+</span>
+</div>
 
-<button class="btn restart"
-onclick="restartServer('StrengthSMP')">
-Restart StrengthSMP
-</button>
+<div class="row">
+<span>
+Node 2 — node2.moonnodes.net
+</span>
+<span class="green">
+Online
+</span>
+</div>
 
-<button class="btn restart"
-onclick="restartServer('SurvivalSMP')">
-Restart SurvivalSMP
-</button>
+<div class="row">
+<span>
+Node 3 — node3.moonnodes.net
+</span>
+<span class="green">
+Online
+</span>
+</div>
 
 </div>
 
@@ -1415,40 +1351,39 @@ Restart SurvivalSMP
 
 
 </main>
-
+</div>
 </div>
 
 
-<!-- =====================================================
-     RESTART MODAL
-===================================================== -->
+<!-- RESTART MODAL -->
 
-<div class="modal" id="restartModal">
+<div
+id="restartModal"
+class="modal">
 
-<div class="modal-box">
+<div class="modalbox">
 
-<h2>
-↻ Server Restart
-</h2>
+<h2>Server Restart</h2>
 
 <p id="restartText">
-Preparing restart...
+Server restarting...
 </p>
 
-<div class="countdown"
-id="countdown">
+<div
+id="restartCount"
+class="count">
 10
 </div>
 
-<div>
-
-<button class="btn restart"
+<button
+class="btn white"
 onclick="confirmRestart()">
-Confirm Restart
+Confirm
 </button>
 
-<button class="btn"
-onclick="cancelRestart()">
+<button
+class="btn"
+onclick="closeRestart()">
 Cancel
 </button>
 
@@ -1456,206 +1391,231 @@ Cancel
 
 </div>
 
+
+<div
+id="toast"
+class="toast">
+Done
 </div>
 
 
 <script>
 
-/* =========================================================
-   MOONNODES JAVASCRIPT
-========================================================= */
+/* =========================
+   DEMO USER SYSTEM
+========================= */
 
-let selectedServer = "";
+let currentUser =
+JSON.parse(
+localStorage.getItem("moon_current_user")
+)||null;
 
-let restartInterval = null;
+let users =
+JSON.parse(
+localStorage.getItem("moon_users")
+)||[];
 
-let restartNumber = 10;
+let servers =
+JSON.parse(
+localStorage.getItem("moon_servers")
+)||[
+{
+id:1,
+owner:"demo",
+name:"MoonSMP",
+node:"node1.moonnodes.net",
+port:25565,
+ram:"4 GB",
+cpu:"2 Cores",
+status:"online"
+},
+{
+id:2,
+owner:"demo",
+name:"StrengthSMP",
+node:"node2.moonnodes.net",
+port:25566,
+ram:"4 GB",
+cpu:"2 Cores",
+status:"online"
+},
+{
+id:3,
+owner:"demo",
+name:"SurvivalSMP",
+node:"node3.moonnodes.net",
+port:25567,
+ram:"4 GB",
+cpu:"2 Cores",
+status:"stopped"
+}
+];
 
 
-/* PAGE */
+function save(){
 
-function page(id,button){
+localStorage.setItem(
+"moon_users",
+JSON.stringify(users)
+);
 
-    document
-    .querySelectorAll(".page")
-    .forEach(function(item){
-
-        item.classList.remove("active");
-
-    });
-
-
-    document
-    .getElementById(id)
-    .classList.add("active");
-
-
-    document
-    .querySelectorAll(".nav")
-    .forEach(function(item){
-
-        item.classList.remove("active");
-
-    });
-
-
-    button.classList.add("active");
+localStorage.setItem(
+"moon_servers",
+JSON.stringify(servers)
+);
 
 }
 
 
-/* CONSOLE */
+function showSignup(){
 
-function log(message,type=""){
+loginForm.classList.add("hidden");
+signupForm.classList.remove("hidden");
 
-    const box =
-        document.getElementById("console");
+toSignup.classList.add("hidden");
+toLogin.classList.remove("hidden");
 
-    const line =
-        document.createElement("div");
+authSubtitle.innerText=
+"Create your MoonNodes account";
 
-    if(type){
-
-        line.className =
-            "console-" + type;
-
-    }
-
-    line.innerText =
-        "[MoonNodes] " + message;
-
-    box.appendChild(line);
-
-    box.scrollTop =
-        box.scrollHeight;
+authError.innerText="";
 
 }
 
 
-/* START */
+function showLogin(){
 
-function startServer(name){
+loginForm.classList.remove("hidden");
+signupForm.classList.add("hidden");
 
-    log(
-        "Starting " + name + "..."
-    );
+toSignup.classList.remove("hidden");
+toLogin.classList.add("hidden");
 
-    setTimeout(function(){
+authSubtitle.innerText=
+"Login to your premium hosting panel";
 
-        log(
-            name + " is starting..."
-        );
-
-    },800);
-
-
-    setTimeout(function(){
-
-        log(
-            name + " is now online.",
-            "success"
-        );
-
-    },1800);
+authError.innerText="";
 
 }
 
 
-/* STOP */
+/* SIGNUP */
 
-function stopServer(name){
+signupForm.onsubmit=function(e){
 
-    log(
-        "Stopping " + name + "..."
-    );
+e.preventDefault();
 
-    setTimeout(function(){
+let name=
+signupName.value.trim();
 
-        log(
-            name + " has stopped.",
-            "warning"
-        );
+let email=
+signupEmail.value.trim().toLowerCase();
 
-    },1200);
-
-}
+let password=
+signupPassword.value;
 
 
-/* OPEN RESTART */
+if(password.length<6){
 
-function restartServer(name){
+authError.innerText=
+"Password must be at least 6 characters.";
 
-    selectedServer = name;
-
-    restartNumber = 10;
-
-    document
-    .getElementById("restartText")
-    .innerText =
-        name +
-        " will restart in:";
-
-
-    document
-    .getElementById("countdown")
-    .innerText =
-        restartNumber;
-
-
-    document
-    .getElementById("restartModal")
-    .classList.add("show");
+return;
 
 }
 
 
-/* CANCEL */
+if(users.find(u=>u.email===email)){
 
-function cancelRestart(){
+authError.innerText=
+"Account already exists.";
 
-    clearInterval(restartInterval);
-
-    document
-    .getElementById("restartModal")
-    .classList.remove("show");
+return;
 
 }
 
 
-/* CONFIRM */
+let user={
 
-function confirmRestart(){
+id:Date.now(),
 
-    clearInterval(restartInterval);
+name:name,
 
-    restartNumber = 10;
+email:email,
 
+password:password,
 
-    document
-    .getElementById("countdown")
-    .innerText =
-        restartNumber;
+role:"member"
 
-
-    log(
-        "Restart requested for " +
-        selectedServer,
-        "warning"
-    );
+};
 
 
-    restartInterval =
-        setInterval(function(){
+users.push(user);
 
-            restartNumber--;
+save();
+
+currentUser=user;
+
+localStorage.setItem(
+"moon_current_user",
+JSON.stringify(user)
+);
+
+openApp();
+
+};
 
 
-            document
-            .getElementById("countdown")
-            .innerText =
-                restartNumber;
+/* LOGIN */
+
+loginForm.onsubmit=function(e){
+
+e.preventDefault();
+
+let email=
+loginEmail.value.trim().toLowerCase();
+
+let password=
+loginPassword.value;
 
 
-            if(restartNumber <= 0){
+/*
+ Owner demo account.
 
-                clearInterval
+ Change this before real deployment.
+*/
+
+if(
+email==="haideraki5522@gmail.com" &&
+password==="MoonNodesOwner"
+){
+
+currentUser={
+
+id:"owner",
+
+name:"Haider",
+
+email:email,
+
+role:"owner"
+
+};
+
+localStorage.setItem(
+"moon_current_user",
+JSON.stringify(currentUser)
+);
+
+openApp();
+
+return;
+
+}
+
+
+let user=
+users.find(
+u=>
+u.email===email &&
+u.password===password
