@@ -1,0 +1,22 @@
+function showPlans() {
+  document.getElementById("plans").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+function login() {
+  alert("MoonNodes Dashboard is coming soon!");
+}
+
+function order(plan) {
+  alert(
+    "You selected the " +
+    plan +
+    " plan.\n\nMoonNodes ordering system is coming soon!"
+  );
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("statusText").textContent =
+    "All systems operational";
+});
